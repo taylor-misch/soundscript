@@ -1,5 +1,4 @@
-RACHEL KORKOWSKI
-TAYLOR MISCH
+Made by Taylor Misch and Rachel Korkowski
 
 
 LANGUAGE DESCRIPTION
