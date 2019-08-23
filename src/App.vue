@@ -28,9 +28,6 @@ import Code from "@/components/Code";
 import Language from "@/components/Language";
 import Grammar from "@/components/Grammar";
 import Branding from "@/components/Branding";
-import parser from "@/language/parser.js";
-import lexer from "@/language/lexer.js";
-import ast from "@/language/ast.js";
 
 export default {
   name: "App",
@@ -44,41 +41,22 @@ export default {
     compileCode: function(code) {
       console.log("I have recieved the code");
       console.log(code);
-    },
-    evaluate: function() {
-      var source = ide.value;
-      var tokens = lexer.lex(source);
-      var ast = parser.parse(tokens);
-      //maybe set default lengths for each note here?
-      var env = {
-        SIXTEENTH: 60000 / 120 / 4,
-        EIGHTH: 60000 / 120 / 2,
-        QUARTER: 60000 / 120,
-        HALF: (60000 / 120) * 2,
-        WHOLE: (60000 / 120) * 4
-      };
-      ast.evaluate(env);
+      // this.evaluate(code);
     }
-
-    // var ide = document.getElementById('ide');
-    //   var run = document.getElementById('run');
-    //   var consoleDiv = document.getElementById('console');
-    //   function evaluate() {
-    //       consoleDiv.innerHTML = '';
-    //       var source = ide.value;
-    //       var tokens = lex(source);
-    //       var ast = parse(tokens);
-    //       //maybe set default lengths for each note here?
-    //       var env = {
-    //            SIXTEENTH: (60000/120)/4,
-    //            EIGHTH: (60000/120)/2,
-    //            QUARTER: (60000/120),
-    //            HALF: (60000/120)*2,
-    //            WHOLE: (60000/120)*4
-    //       };
-    //       ast.evaluate(env);
-    //   }
-    //   run.onclick = evaluate;
+    // evaluate: function(code) {
+    //   var source = code;
+    //   var tokens = lex(source);
+    //   var ast = parse(tokens);
+    //   //maybe set default lengths for each note here?
+    //   var env = {
+    //     SIXTEENTH: 60000 / 120 / 4,
+    //     EIGHTH: 60000 / 120 / 2,
+    //     QUARTER: 60000 / 120,
+    //     HALF: (60000 / 120) * 2,
+    //     WHOLE: (60000 / 120) * 4
+    //   };
+    //   ast.evaluate(env);
+    // }
   }
 };
 </script>
