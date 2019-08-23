@@ -1,0 +1,53 @@
+c4 = note 261 "sine" QUARTER
+d4 = note 293 "sine" QUARTER
+e4 = note 329 "sine" QUARTER
+f4 = note 349 "sine" QUARTER
+g4 = note 392 "sine" QUARTER
+a4 = note 440 "sine" QUARTER
+
+@ twinkleTwinkleChorus ()
+play c4
+play c4
+play g4
+play g4
+play a4
+play a4
+play note 392 "sine" HALF
+play f4
+play f4
+play e4
+play e4
+play d4
+play d4
+play note 261 "sine" HALF
+end
+
+@ twinkleTwinkleVerse1 ()
+play g4
+play g4
+play f4
+play f4
+play e4
+play e4
+play note 293 "sine" HALF
+end
+
+@twinkleTwinkleVerse2 ()
+play g4
+play g4
+play f4
+play f4
+play e4
+play note 329 "sine" SIXTEENTH
+play note 349 "sine" SIXTEENTH
+play note 329 "sine" SIXTEENTH
+play e4
+play d4
+end
+
+twinkleTwinkleChorus ()
+twinkleTwinkleVerse1 ()
+twinkleTwinkleVerse2 ()
+twinkleTwinkleChorus ()
+
+print "Thanks for listening ;)"
