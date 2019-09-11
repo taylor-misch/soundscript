@@ -48,8 +48,10 @@ export default {
       code: 'play note 392 "sine" HALF'
     };
   },
-  watch: function() {
-    console.log(this.code);
+  watch: {
+    code: function() {
+      console.log(this.code);
+    }
   },
   methods: {
     runCode() {

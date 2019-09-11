@@ -1,5 +1,31 @@
 import { variables } from "@/language/variables.js";
-import ast from "@/language/ast.js";
+import {
+  StatementNote,
+  StatementRest,
+  StatementBPM,
+  StatementPrint,
+  StatementPlay,
+  StatementAssignment,
+  StatementAtCall,
+  Block,
+  ExpressionIf,
+  StatementRepeat,
+  StatementAt,
+  ExpressionMoreOrEqual,
+  ExpressionMore,
+  ExpressionLessOrEqual,
+  ExpressionLess,
+  ExpressionNotEqual,
+  ExpressionEqual,
+  ExpressionAdd,
+  ExpressionSubtract,
+  ExpressionMultiply,
+  ExpressionMod,
+  ExpressionDivide,
+  ExpressionIntegerLiteral,
+  ExpressionString,
+  ExpressionVariableRef
+} from "@/language/ast.js";
 
 export default {
   parse(tokens) {
@@ -25,24 +51,24 @@ export default {
         var noteLength = expression();
         console.log(noteLength);
 
-        return ast.StatementNote(frequency, oscillatorType, noteLength);
+        return new StatementNote(frequency, oscillatorType, noteLength);
       } else if (has(variables.REST)) {
         next();
         var restLength = expression();
-        return ast.StatementRest(restLength);
+        return new StatementRest(restLength);
       } else if (has(variables.BPM)) {
         next();
         var beatsPerMinute = expression();
-        return ast.StatementBPM(beatsPerMinute);
+        return new StatementBPM(beatsPerMinute);
       } else if (has(variables.PRINT)) {
         next();
         var message = expression();
-        return ast.StatementPrint(message);
+        return new StatementPrint(message);
       } else if (has(variables.PLAY)) {
         console.log("in PLAY");
         next();
         var object = expression();
-        return ast.StatementPlay(object);
+        return new StatementPlay(object);
       } else if (has(variables.REPEAT)) {
         return loop();
       } else if (has(variables.IF)) {
@@ -53,7 +79,7 @@ export default {
         if (has(variables.ASSIGN)) {
           next();
           var rhs = expression();
-          return ast.StatementAssignment(idToken.source, rhs);
+          return new StatementAssignment(idToken.source, rhs);
         } else if (has(variables.LEFT_PARENTHESIS)) {
           next();
           var actuals = [];
@@ -61,7 +87,7 @@ export default {
             actuals.push(expression());
           }
           next(); // eat )
-          return ast.StatementAtCall(idToken.source, actuals);
+          return new StatementAtCall(idToken.source, actuals);
         } else if (!has(variables.ASSIGN)) {
           throw "Error: Invalid Input " + tokens[i].source;
         }
@@ -92,7 +118,7 @@ export default {
       console.log(statements);
 
       console.log("In program: " + statements);
-      return ast.Block(statements);
+      return new Block(statements);
     }
 
     function conditional() {
@@ -118,10 +144,10 @@ export default {
       }
       next(); // eat end
 
-      var thenBlock = ast.Block(thenStatements);
-      var elseBlock = ast.Block(elseStatements);
+      var thenBlock = new Block(thenStatements);
+      var elseBlock = new Block(elseStatements);
 
-      return ast.ExpressionIf(condition, thenBlock, elseBlock);
+      return new ExpressionIf(condition, thenBlock, elseBlock);
     }
 
     function loop() {
@@ -138,7 +164,7 @@ export default {
       }
 
       next();
-      return ast.StatementRepeat(condition, ast.Block(statements));
+      return new StatementRepeat(condition, new Block(statements));
     }
 
     function define() {
@@ -161,7 +187,7 @@ export default {
         }
       }
       next();
-      return ast.StatementAt(nameToken.source, formals, ast.Block(statements));
+      return new StatementAt(nameToken.source, formals, new Block(statements));
     }
 
     function expression() {
@@ -186,17 +212,17 @@ export default {
         next(); // eat operator
         var b = additive();
         if (operator.type == variables.MORE_OR_EQUAL) {
-          a = ast.ExpressionMoreOrEqual(a, b);
+          a = new ExpressionMoreOrEqual(a, b);
         } else if (operator.type == variables.MORE) {
-          a = ast.ExpressionMore(a, b);
+          a = new ExpressionMore(a, b);
         } else if (operator.type == variables.LESS_OR_EQUAL) {
-          a = ast.ExpressionLessOrEqual(a, b);
+          a = new ExpressionLessOrEqual(a, b);
         } else if (operator.type == variables.LESS) {
-          a = ast.ExpressionLess(a, b);
+          a = new ExpressionLess(a, b);
         } else if (operator.type == variables.EQUAL) {
-          a = ast.ExpressionEqual(a, b);
+          a = new ExpressionEqual(a, b);
         } else {
-          a = ast.ExpressionNotEqual(a, b);
+          a = new ExpressionNotEqual(a, b);
         }
       }
       return a;
@@ -210,9 +236,9 @@ export default {
         var operatorToken = next();
         var r = multiplicative();
         if (operatorToken.type == variables.PLUS) {
-          l = ast.ExpressionAdd(l, r);
+          l = new ExpressionAdd(l, r);
         } else {
-          l = ast.ExpressionSubtract(l, r);
+          l = new ExpressionSubtract(l, r);
         }
       }
 
@@ -232,11 +258,11 @@ export default {
         next(); // eat operator
         var b = atom();
         if (operator.type == variables.ASTERISK) {
-          a = ast.ExpressionMultiply(a, b);
+          a = new ExpressionMultiply(a, b);
         } else if (operator.type == variables.MOD) {
-          a = ast.ExpressionMod(a, b);
+          a = new ExpressionMod(a, b);
         } else {
-          a = ast.ExpressionDivide(a, b);
+          a = new ExpressionDivide(a, b);
         }
       }
       return a;
@@ -249,11 +275,11 @@ export default {
         console.log("in integer");
 
         let token = next();
-        return ast.ExpressionIntegerLiteral(parseInt(token.source));
+        return new ExpressionIntegerLiteral(parseInt(token.source));
       } else if (has(variables.STRING)) {
         console.log("in string");
         let token = next();
-        return ast.ExpressionString(token.source);
+        return new ExpressionString(token.source);
       } else if (has(variables.NOTE)) {
         console.log("in note");
         return statement();
@@ -263,7 +289,7 @@ export default {
       } else if (has(variables.IDENTIFIER)) {
         console.log("in identifier");
         let token = next();
-        return ast.ExpressionVariableRef(String(token.source));
+        return new ExpressionVariableRef(String(token.source));
       } else if (has(variables.LEFT_PARENTHESIS)) {
         next();
         var e = expression();
