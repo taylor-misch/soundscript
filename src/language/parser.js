@@ -1,244 +1,253 @@
 import { variables } from "@/language/variables.js";
+import ast from "@/language/ast.js";
+
 export default {
   parse(tokens) {
     console.log(tokens);
-    console.log(variables.NOTE);
-    // var i = 0;
-    //
-    // function statement() {
-    //   if (has(AT)) {
-    //     return define();
-    //   } else if (has(NOTE)) {
-    //     next();
-    //     var frequency = expression();
-    //     var oscillatorType = atom();
-    //     var noteLength = expression();
-    //     return new StatementNote(frequency, oscillatorType, noteLength);
-    //   } else if (has(REST)) {
-    //     next();
-    //     var restLength = expression();
-    //     return new StatementRest(restLength);
-    //   } else if (has(BPM)) {
-    //     next();
-    //     var beatsPerMinute = expression();
-    //     return new StatementBPM(beatsPerMinute);
-    //   } else if (has(PRINT)) {
-    //     next();
-    //     var message = expression();
-    //     return new StatementPrint(message);
-    //   } else if (has(PLAY)) {
-    //     next();
-    //     var object = expression();
-    //     return new StatementPlay(object);
-    //   } else if (has(REPEAT)) {
-    //     return loop();
-    //   } else if (has(IF)) {
-    //     return conditional();
-    //   } else if (has(IDENTIFIER)) {
-    //     var idToken = next();
+    var i = 0;
 
-    //     if (has(ASSIGN)) {
-    //       next();
-    //       var rhs = expression();
-    //       return new StatementAssignment(idToken.source, rhs);
-    //     } else if (has(LEFT_PARENTHESIS)) {
-    //       next();
-    //       var actuals = [];
-    //       while (!has(RIGHT_PARENTHESIS)) {
-    //         actuals.push(expression());
-    //       }
-    //       next(); // eat )
-    //       return new StatementAtCall(idToken.source, actuals);
-    //     } else if (!has(ASSIGN)) {
-    //       throw "Error: Invalid Input " + tokens[i].source;
-    //     }
-    //   } else {
-    //     throw "Error: [" + tokens[i].source + "] not recognized. ";
-    //   }
-    // }
+    function statement() {
+      if (has(variables.AT)) {
+        return define();
+      } else if (has(variables.NOTE)) {
+        next();
+        var frequency = expression();
+        var oscillatorType = atom();
+        var noteLength = expression();
+        return new ast.StatementNote(frequency, oscillatorType, noteLength);
+      } else if (has(variables.REST)) {
+        next();
+        var restLength = expression();
+        return new ast.StatementRest(restLength);
+      } else if (has(variables.BPM)) {
+        next();
+        var beatsPerMinute = expression();
+        return new ast.StatementBPM(beatsPerMinute);
+      } else if (has(variables.PRINT)) {
+        next();
+        var message = expression();
+        return new ast.StatementPrint(message);
+      } else if (has(variables.PLAY)) {
+        next();
+        var object = expression();
+        return new ast.StatementPlay(object);
+      } else if (has(variables.REPEAT)) {
+        return loop();
+      } else if (has(variables.IF)) {
+        return conditional();
+      } else if (has(variables.IDENTIFIER)) {
+        var idToken = next();
 
-    // function has(tokenType) {
-    //   return i < tokens.length && tokens[i].type == tokenType;
-    // }
+        if (has(variables.ASSIGN)) {
+          next();
+          var rhs = expression();
+          return new ast.StatementAssignment(idToken.source, rhs);
+        } else if (has(variables.LEFT_PARENTHESIS)) {
+          next();
+          var actuals = [];
+          while (!has(variables.RIGHT_PARENTHESIS)) {
+            actuals.push(expression());
+          }
+          next(); // eat )
+          return new ast.StatementAtCall(idToken.source, actuals);
+        } else if (!has(variables.ASSIGN)) {
+          throw "Error: Invalid Input " + tokens[i].source;
+        }
+      } else {
+        throw "Error: [" + tokens[i].source + "] not recognized. ";
+      }
+    }
 
-    // function next() {
-    //   var token = tokens[i];
-    //   i++;
-    //   return token;
-    // }
+    function has(tokenType) {
+      return i < tokens.length && tokens[i].type == tokenType;
+    }
 
-    // function program() {
-    //   var statements = [];
-    //   while (!has(EOF)) {
-    //     statements.push(statement());
-    //   }
-    //   return new Block(statements);
-    // }
+    function next() {
+      var token = tokens[i];
+      i++;
+      return token;
+    }
 
-    // function conditional() {
-    //   next();
-    //   var condition = expression();
-    //   var thenStatements = [];
+    function program() {
+      var statements = [];
+      while (!has(variables.EOF)) {
+        statements.push(statement());
+      }
+      return new ast.Block(statements);
+    }
 
-    //   while (i < tokens.length && !has(ELSE) && !has(END)) {
-    //     thenStatements.push(statement());
-    //   }
+    function conditional() {
+      next();
+      var condition = expression();
+      var thenStatements = [];
 
-    //   var elseStatements = [];
+      while (i < tokens.length && !has(variables.ELSE) && !has(variables.END)) {
+        thenStatements.push(statement());
+      }
 
-    //   if (has(ELSE)) {
-    //     next();
-    //     while (i < tokens.length && !has(END)) {
-    //       elseStatements.push(statement());
-    //     }
-    //   }
+      var elseStatements = [];
 
-    //   if (!has(END)) {
-    //     throw "Error: You started a conditional block without concluding it with an 'end' token";
-    //   }
-    //   next(); // eat end
+      if (has(variables.ELSE)) {
+        next();
+        while (i < tokens.length && !has(variables.END)) {
+          elseStatements.push(statement());
+        }
+      }
 
-    //   var thenBlock = new Block(thenStatements);
-    //   var elseBlock = new Block(elseStatements);
+      if (!has(variables.END)) {
+        throw "Error: You started a conditional block without concluding it with an 'end' token";
+      }
+      next(); // eat end
 
-    //   return new ExpressionIf(condition, thenBlock, elseBlock);
-    // }
+      var thenBlock = new ast.Block(thenStatements);
+      var elseBlock = new ast.Block(elseStatements);
 
-    // function loop() {
-    //   next();
-    //   var condition = expression();
-    //   var statements = [];
-    //   while (!has(END)) {
-    //     statements.push(statement());
-    //     if (has(EOF)) {
-    //       if (!has(END)) {
-    //         throw "Error: You started a repeat loop without concluding it with an 'end' token";
-    //       }
-    //     }
-    //   }
+      return new ast.ExpressionIf(condition, thenBlock, elseBlock);
+    }
 
-    //   next();
-    //   return new StatementRepeat(condition, new Block(statements));
-    // }
+    function loop() {
+      next();
+      var condition = expression();
+      var statements = [];
+      while (!has(variables.END)) {
+        statements.push(statement());
+        if (has(variables.EOF)) {
+          if (!has(variables.END)) {
+            throw "Error: You started a repeat loop without concluding it with an 'end' token";
+          }
+        }
+      }
 
-    // function define() {
-    //   next();
-    //   var nameToken = next();
-    //   next();
-    //   var formals = [];
-    //   while (!has(RIGHT_PARENTHESIS)) {
-    //     var formalToken = next();
-    //     formals.push(formalToken.source);
-    //   }
-    //   next();
-    //   var statements = [];
-    //   while (!has(END)) {
-    //     statements.push(statement());
-    //     if (has(EOF)) {
-    //       if (!has(END)) {
-    //         throw "Error: You started a function without concluding it with an 'end' token";
-    //       }
-    //     }
-    //   }
-    //   next();
-    //   return new StatementAt(nameToken.source, formals, new Block(statements));
-    // }
+      next();
+      return new ast.StatementRepeat(condition, new ast.Block(statements));
+    }
 
-    // function expression() {
-    //   return relational();
-    // }
+    function define() {
+      next();
+      var nameToken = next();
+      next();
+      var formals = [];
+      while (!has(variables.RIGHT_PARENTHESIS)) {
+        var formalToken = next();
+        formals.push(formalToken.source);
+      }
+      next();
+      var statements = [];
+      while (!has(variables.END)) {
+        statements.push(statement());
+        if (has(variables.EOF)) {
+          if (!has(variables.END)) {
+            throw "Error: You started a function without concluding it with an 'end' token";
+          }
+        }
+      }
+      next();
+      return new ast.StatementAt(
+        nameToken.source,
+        formals,
+        new ast.Block(statements)
+      );
+    }
 
-    // function relational() {
-    //   var a = additive();
-    //   while (
-    //     has(MORE_OR_EQUAL) ||
-    //     has(MORE) ||
-    //     has(LESS_OR_EQUAL) ||
-    //     has(LESS) ||
-    //     has(EQUAL) ||
-    //     has(NOT_EQUAL)
-    //   ) {
-    //     var operator = tokens[i];
-    //     next(); // eat operator
-    //     var b = additive();
-    //     if (operator.type == MORE_OR_EQUAL) {
-    //       a = new ExpressionMoreOrEqual(a, b);
-    //     } else if (operator.type == MORE) {
-    //       a = new ExpressionMore(a, b);
-    //     } else if (operator.type == LESS_OR_EQUAL) {
-    //       a = new ExpressionLessOrEqual(a, b);
-    //     } else if (operator.type == LESS) {
-    //       a = new ExpressionLess(a, b);
-    //     } else if (operator.type == EQUAL) {
-    //       a = new ExpressionEqual(a, b);
-    //     } else {
-    //       a = new ExpressionNotEqual(a, b);
-    //     }
-    //   }
-    //   return a;
-    // }
+    function expression() {
+      return relational();
+    }
 
-    // function additive() {
-    //   var l = multiplicative();
-    //   while (has(PLUS) || has(MINUS)) {
-    //     var operatorToken = next();
-    //     var r = multiplicative();
-    //     if (operatorToken.type == PLUS) {
-    //       l = new ExpressionAdd(l, r);
-    //     } else {
-    //       l = new ExpressionSubtract(l, r);
-    //     }
-    //   }
+    function relational() {
+      var a = additive();
+      while (
+        has(variables.MORE_OR_EQUAL) ||
+        has(variables.MORE) ||
+        has(variables.LESS_OR_EQUAL) ||
+        has(variables.LESS) ||
+        has(variables.EQUAL) ||
+        has(variables.NOT_EQUAL)
+      ) {
+        var operator = tokens[i];
+        next(); // eat operator
+        var b = additive();
+        if (operator.type == variables.MORE_OR_EQUAL) {
+          a = new ast.ExpressionMoreOrEqual(a, b);
+        } else if (operator.type == variables.MORE) {
+          a = new ast.ExpressionMore(a, b);
+        } else if (operator.type == variables.LESS_OR_EQUAL) {
+          a = new ast.ExpressionLessOrEqual(a, b);
+        } else if (operator.type == variables.LESS) {
+          a = new ast.ExpressionLess(a, b);
+        } else if (operator.type == variables.EQUAL) {
+          a = new ast.ExpressionEqual(a, b);
+        } else {
+          a = new ast.ExpressionNotEqual(a, b);
+        }
+      }
+      return a;
+    }
 
-    //   return l;
-    // }
+    function additive() {
+      var l = multiplicative();
+      while (has(variables.PLUS) || has(variables.MINUS)) {
+        var operatorToken = next();
+        var r = multiplicative();
+        if (operatorToken.type == variables.PLUS) {
+          l = new ast.ExpressionAdd(l, r);
+        } else {
+          l = new ast.ExpressionSubtract(l, r);
+        }
+      }
 
-    // function multiplicative() {
-    //   var a = atom();
-    //   while (has(ASTERISK) || has(DIVIDE) || has(MOD)) {
-    //     var operator = tokens[i];
-    //     next(); // eat operator
-    //     var b = atom();
-    //     if (operator.type == ASTERISK) {
-    //       a = new ExpressionMultiply(a, b);
-    //     } else if (operator.type == MOD) {
-    //       a = new ExpressionMod(a, b);
-    //     } else {
-    //       a = new ExpressionDivide(a, b);
-    //     }
-    //   }
-    //   return a;
-    // }
+      return l;
+    }
 
-    // function atom() {
-    //   if (has(INTEGER)) {
-    //     var token = next();
-    //     return new ExpressionIntegerLiteral(parseInt(token.source));
-    //   } else if (has(STRING)) {
-    //     var token = next();
-    //     return new ExpressionString(token.source);
-    //   } else if (has(NOTE)) {
-    //     return statement();
-    //   } else if (has(REST)) {
-    //     return statement();
-    //   } else if (has(IDENTIFIER)) {
-    //     var token = next();
-    //     return new ExpressionVariableRef(String(token.source));
-    //   } else if (has(LEFT_PARENTHESIS)) {
-    //     next();
-    //     var e = expression();
-    //     if (!has(RIGHT_PARENTHESIS)) {
-    //       throw "Error: Missing Right Parenthesis";
-    //     }
-    //     next();
-    //     return e;
-    //   } else {
-    //     throw "Error: I expected an expression, but instead I found '" +
-    //       tokens[i].source +
-    //       "'. Check for missing attributes for keywords and/or misspelled keywords";
-    //   }
-    // }
+    function multiplicative() {
+      var a = atom();
+      while (
+        has(variables.ASTERISK) ||
+        has(variables.DIVIDE) ||
+        has(variables.MOD)
+      ) {
+        var operator = tokens[i];
+        next(); // eat operator
+        var b = atom();
+        if (operator.type == variables.ASTERISK) {
+          a = new ast.ExpressionMultiply(a, b);
+        } else if (operator.type == variables.MOD) {
+          a = new ast.ExpressionMod(a, b);
+        } else {
+          a = new ast.ExpressionDivide(a, b);
+        }
+      }
+      return a;
+    }
 
-    // return program();
+    function atom() {
+      if (has(variables.INTEGER)) {
+        let token = next();
+        return new ast.ExpressionIntegerLiteral(parseInt(token.source));
+      } else if (has(variables.STRING)) {
+        let token = next();
+        return new ast.ExpressionString(token.source);
+      } else if (has(variables.NOTE)) {
+        return statement();
+      } else if (has(variables.REST)) {
+        return statement();
+      } else if (has(variables.IDENTIFIER)) {
+        let token = next();
+        return new ast.ExpressionVariableRef(String(token.source));
+      } else if (has(variables.LEFT_PARENTHESIS)) {
+        next();
+        var e = expression();
+        if (!has(variables.RIGHT_PARENTHESIS)) {
+          throw "Error: Missing Right Parenthesis";
+        }
+        next();
+        return e;
+      } else {
+        throw "Error: I expected an expression, but instead I found '" +
+          tokens[i].source +
+          "'. Check for missing attributes for keywords and/or misspelled keywords";
+      }
+    }
+
+    return program();
   }
 };

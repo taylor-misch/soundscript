@@ -46,25 +46,25 @@ export default {
       console.log(code);
       this.evaluate(code);
     },
-    evaluate: function(code) {
-      console.log(code);
-      var tokens = lexer.lex(code);
-      parser.parse(tokens);
-    }
     // evaluate: function(code) {
-    //   var source = code;
-    //   var tokens = lexer.lex(source);
-    //   var ast = parser.parse(tokens);
-    //   //maybe set default lengths for each note here?
-    //   var env = {
-    //     SIXTEENTH: 60000 / 120 / 4,
-    //     EIGHTH: 60000 / 120 / 2,
-    //     QUARTER: 60000 / 120,
-    //     HALF: (60000 / 120) * 2,
-    //     WHOLE: (60000 / 120) * 4
-    //   };
-    //   ast.evaluate(env);
+    //   console.log(code);
+    //   var tokens = lexer.lex(code);
+    //   parser.parse(tokens);
     // }
+    evaluate: function(code) {
+      var source = code;
+      var tokens = lexer.lex(source);
+      var ast = parser.parse(tokens);
+      //maybe set default lengths for each note here?
+      var env = {
+        SIXTEENTH: 60000 / 120 / 4,
+        EIGHTH: 60000 / 120 / 2,
+        QUARTER: 60000 / 120,
+        HALF: (60000 / 120) * 2,
+        WHOLE: (60000 / 120) * 4
+      };
+      ast.evaluate(env);
+    }
   }
 };
 </script>
