@@ -28,6 +28,9 @@ import Code from "@/components/Code";
 import Language from "@/components/Language";
 import Grammar from "@/components/Grammar";
 import Branding from "@/components/Branding";
+import lexer from "@/language/lexer.js";
+import parser from "@/language/parser.js";
+// import ast from "@/language/ast.js";
 
 export default {
   name: "App",
@@ -41,12 +44,17 @@ export default {
     compileCode: function(code) {
       console.log("I have recieved the code");
       console.log(code);
-      // this.evaluate(code);
+      this.evaluate(code);
+    },
+    evaluate: function(code) {
+      console.log(code);
+      var tokens = lexer.lex(code);
+      parser.parse(tokens);
     }
     // evaluate: function(code) {
     //   var source = code;
-    //   var tokens = lex(source);
-    //   var ast = parse(tokens);
+    //   var tokens = lexer.lex(source);
+    //   var ast = parser.parse(tokens);
     //   //maybe set default lengths for each note here?
     //   var env = {
     //     SIXTEENTH: 60000 / 120 / 4,

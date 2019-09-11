@@ -32,7 +32,7 @@ play e4
 play note 293 "sine" HALF
 end
 
-@twinkleTwinkleVerse2 ()
+@ twinkleTwinkleVerse2 ()
 play g4
 play g4
 play f4
