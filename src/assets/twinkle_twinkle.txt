@@ -49,5 +49,3 @@ twinkleTwinkleChorus ()
 twinkleTwinkleVerse1 ()
 twinkleTwinkleVerse2 ()
 twinkleTwinkleChorus ()
-
-print "Thanks for listening ;)"

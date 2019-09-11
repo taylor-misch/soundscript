@@ -1,51 +1,7 @@
-// //Math operators
-// var PLUS = "PLUS";
-// var MINUS = "MINUS";
-// var DIVIDE = "DIVIDE";
-// var ASTERISK = "ASTERISK";
-// var MOD = "MOD";
-
-// //Comparison Operators
-// var MORE_OR_EQUAL = "MORE_OR_EQUAL";
-// var MORE = "MORE";
-// var LESS_OR_EQUAL = "LESS_OR_EQUAL";
-// var LESS = "LESS";
-// var EQUAL = "EQUAL";
-// var NOT_EQUAL = "NOT_EQUAL";
-
-// //Types (identifier/integer)
-// var IDENTIFIER = "IDENTIFIER";
-// var INTEGER = "INTEGER";
-// var STRING = "STRING";
-
-// //Statements specific to sound
-// var NOTE = "NOTE";
-// var REST = "REST";
-// var BPM = "BPM";
-// var PLAY = "PLAY";
-
-// //Formatting operators
-// var EOF = "EOF";
-// var LEFT_PARENTHESIS = "LEFT_PARENTHESIS";
-// var RIGHT_PARENTHESIS = "RIGHT_PARENTHESIS";
-// var COMMA = "COMMA";
-
-// //Conditionals and Loops
-// var REPEAT = "REPEAT";
-// var IF = "IF";
-// var ELSE = "ELSE";
-// var END = "END";
-
-// //Print, assign, and functions
-// var PRINT = "PRINT";
-// var ASSIGN = "ASSIGN";
-// var AT = "AT";
-
 import { variables } from "@/language/variables.js";
 
 export default {
   lex(source) {
-    console.log(source);
     var tokens = [];
     var tokenSoFar = "";
     var i = 0;

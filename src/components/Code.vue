@@ -6,7 +6,14 @@
     <div class="hidden-sm-and-down">
       <v-layout>
         <v-flex xs6>
-          <v-textarea filled background-color="white" label="Input" no-resize rows="30"></v-textarea>
+          <v-textarea
+            v-model="code"
+            filled
+            background-color="white"
+            label="Input"
+            no-resize
+            rows="30"
+          ></v-textarea>
         </v-flex>
         <v-flex xs6>
           <v-textarea
@@ -22,7 +29,7 @@
     <div class="hidden-md-and-up">
       <v-layout>
         <v-flex xs12>
-          <v-textarea filled background-color="white" label="Input" auto-grow></v-textarea>
+          <v-textarea filled background-color="white" label="Input" auto-grow v-model="code"></v-textarea>
           <v-textarea
             filled
             background-color="white"
@@ -45,18 +52,11 @@ export default {
   },
   data() {
     return {
-      code: 'play note 392 "sine" HALF'
+      code: ""
     };
-  },
-  watch: {
-    code: function() {
-      console.log(this.code);
-    }
   },
   methods: {
     runCode() {
-      console.log(this.code);
-      console.log("hello");
       this.$emit("run", this.code);
     }
   }

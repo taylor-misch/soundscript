@@ -3,7 +3,7 @@ import {
   StatementNote,
   StatementRest,
   StatementBPM,
-  StatementPrint,
+  // StatementPrint,
   StatementPlay,
   StatementAssignment,
   StatementAtCall,
@@ -29,27 +29,16 @@ import {
 
 export default {
   parse(tokens) {
-    console.log(tokens);
     var i = 0;
 
     function statement() {
-      console.log("I'm in statement");
-
       if (has(variables.AT)) {
-        console.log("in @");
-
         return define();
       } else if (has(variables.NOTE)) {
-        console.log("in NOTE");
         next();
         var frequency = expression();
-        console.log(frequency);
-
         var oscillatorType = atom();
-        console.log(oscillatorType);
-
         var noteLength = expression();
-        console.log(noteLength);
 
         return new StatementNote(frequency, oscillatorType, noteLength);
       } else if (has(variables.REST)) {
@@ -60,12 +49,11 @@ export default {
         next();
         var beatsPerMinute = expression();
         return new StatementBPM(beatsPerMinute);
-      } else if (has(variables.PRINT)) {
-        next();
-        var message = expression();
-        return new StatementPrint(message);
+        // } else if (has(variables.PRINT)) {
+        //   next();
+        //   var message = expression();
+        //   return new StatementPrint(message);
       } else if (has(variables.PLAY)) {
-        console.log("in PLAY");
         next();
         var object = expression();
         return new StatementPlay(object);
@@ -108,16 +96,11 @@ export default {
 
     function program() {
       var statements = [];
-      console.log(statements);
 
       while (!has(variables.EOF)) {
-        console.log("I'm in");
-
         statements.push(statement());
       }
-      console.log(statements);
 
-      console.log("In program: " + statements);
       return new Block(statements);
     }
 
@@ -191,14 +174,10 @@ export default {
     }
 
     function expression() {
-      console.log("In Expression");
-
       return relational();
     }
 
     function relational() {
-      console.log("in Relational");
-
       var a = additive();
       while (
         has(variables.MORE_OR_EQUAL) ||
@@ -229,8 +208,6 @@ export default {
     }
 
     function additive() {
-      console.log("in additive");
-
       var l = multiplicative();
       while (has(variables.PLUS) || has(variables.MINUS)) {
         var operatorToken = next();
@@ -246,8 +223,6 @@ export default {
     }
 
     function multiplicative() {
-      console.log("in multiplicative");
-
       var a = atom();
       while (
         has(variables.ASTERISK) ||
@@ -269,25 +244,17 @@ export default {
     }
 
     function atom() {
-      console.log("in atom");
-
       if (has(variables.INTEGER)) {
-        console.log("in integer");
-
         let token = next();
         return new ExpressionIntegerLiteral(parseInt(token.source));
       } else if (has(variables.STRING)) {
-        console.log("in string");
         let token = next();
         return new ExpressionString(token.source);
       } else if (has(variables.NOTE)) {
-        console.log("in note");
         return statement();
       } else if (has(variables.REST)) {
-        console.log("in rest");
         return statement();
       } else if (has(variables.IDENTIFIER)) {
-        console.log("in identifier");
         let token = next();
         return new ExpressionVariableRef(String(token.source));
       } else if (has(variables.LEFT_PARENTHESIS)) {

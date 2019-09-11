@@ -1,10 +1,6 @@
 export function Block(statements) {
-  console.log("I'm in BLOCK");
-  console.log(statements);
   this.evaluate = function(env) {
-    console.log("I'm in BLOCK 2");
     statements.forEach(statement => {
-      console.log("I'm in BLOCK");
       statement.evaluate(env);
     });
   };
@@ -87,13 +83,13 @@ export function sleep(milliseconds) {
   }
 }
 
-export function StatementPrint(message) {
-  this.evaluate = function(env) {
-    var m = message.evaluate(env);
-    document.getElementById("console").innerHTML =
-      document.getElementById("console").innerHTML + m + "\n";
-  };
-}
+// export function StatementPrint(message) {
+//   this.evaluate = function(env) {
+//     var m = message.evaluate(env);
+//     document.getElementById("console").innerHTML =
+//       document.getElementById("console").innerHTML + m + "\n";
+//   };
+// }
 
 export function StatementAssignment(id, expr) {
   this.evaluate = function(env) {
@@ -124,9 +120,6 @@ export function StatementAtCall(name, actuals) {
 // Expressions
 
 export function ExpressionIntegerLiteral(literal) {
-  console.log("in Expression integer literal");
-  console.log(literal);
-
   this.evaluate = function() {
     return literal;
   };
@@ -134,12 +127,7 @@ export function ExpressionIntegerLiteral(literal) {
 
 // we should have an error in case the variable isn't set/doesn't exist
 export function ExpressionVariableRef(id) {
-  console.log("in Expression Variable ref");
-  console.log(id);
-
   this.evaluate = function(env) {
-    console.log("hello");
-
     return env[id];
   };
 }
