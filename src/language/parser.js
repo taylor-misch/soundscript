@@ -7,30 +7,42 @@ export default {
     var i = 0;
 
     function statement() {
+      console.log("I'm in statement");
+
       if (has(variables.AT)) {
+        console.log("in @");
+
         return define();
       } else if (has(variables.NOTE)) {
+        console.log("in NOTE");
         next();
         var frequency = expression();
+        console.log(frequency);
+
         var oscillatorType = atom();
+        console.log(oscillatorType);
+
         var noteLength = expression();
-        return new ast.StatementNote(frequency, oscillatorType, noteLength);
+        console.log(noteLength);
+
+        return ast.StatementNote(frequency, oscillatorType, noteLength);
       } else if (has(variables.REST)) {
         next();
         var restLength = expression();
-        return new ast.StatementRest(restLength);
+        return ast.StatementRest(restLength);
       } else if (has(variables.BPM)) {
         next();
         var beatsPerMinute = expression();
-        return new ast.StatementBPM(beatsPerMinute);
+        return ast.StatementBPM(beatsPerMinute);
       } else if (has(variables.PRINT)) {
         next();
         var message = expression();
-        return new ast.StatementPrint(message);
+        return ast.StatementPrint(message);
       } else if (has(variables.PLAY)) {
+        console.log("in PLAY");
         next();
         var object = expression();
-        return new ast.StatementPlay(object);
+        return ast.StatementPlay(object);
       } else if (has(variables.REPEAT)) {
         return loop();
       } else if (has(variables.IF)) {
@@ -41,7 +53,7 @@ export default {
         if (has(variables.ASSIGN)) {
           next();
           var rhs = expression();
-          return new ast.StatementAssignment(idToken.source, rhs);
+          return ast.StatementAssignment(idToken.source, rhs);
         } else if (has(variables.LEFT_PARENTHESIS)) {
           next();
           var actuals = [];
@@ -49,7 +61,7 @@ export default {
             actuals.push(expression());
           }
           next(); // eat )
-          return new ast.StatementAtCall(idToken.source, actuals);
+          return ast.StatementAtCall(idToken.source, actuals);
         } else if (!has(variables.ASSIGN)) {
           throw "Error: Invalid Input " + tokens[i].source;
         }
@@ -70,10 +82,17 @@ export default {
 
     function program() {
       var statements = [];
+      console.log(statements);
+
       while (!has(variables.EOF)) {
+        console.log("I'm in");
+
         statements.push(statement());
       }
-      return new ast.Block(statements);
+      console.log(statements);
+
+      console.log("In program: " + statements);
+      return ast.Block(statements);
     }
 
     function conditional() {
@@ -99,10 +118,10 @@ export default {
       }
       next(); // eat end
 
-      var thenBlock = new ast.Block(thenStatements);
-      var elseBlock = new ast.Block(elseStatements);
+      var thenBlock = ast.Block(thenStatements);
+      var elseBlock = ast.Block(elseStatements);
 
-      return new ast.ExpressionIf(condition, thenBlock, elseBlock);
+      return ast.ExpressionIf(condition, thenBlock, elseBlock);
     }
 
     function loop() {
@@ -119,7 +138,7 @@ export default {
       }
 
       next();
-      return new ast.StatementRepeat(condition, new ast.Block(statements));
+      return ast.StatementRepeat(condition, ast.Block(statements));
     }
 
     function define() {
@@ -142,18 +161,18 @@ export default {
         }
       }
       next();
-      return new ast.StatementAt(
-        nameToken.source,
-        formals,
-        new ast.Block(statements)
-      );
+      return ast.StatementAt(nameToken.source, formals, ast.Block(statements));
     }
 
     function expression() {
+      console.log("In Expression");
+
       return relational();
     }
 
     function relational() {
+      console.log("in Relational");
+
       var a = additive();
       while (
         has(variables.MORE_OR_EQUAL) ||
@@ -167,31 +186,33 @@ export default {
         next(); // eat operator
         var b = additive();
         if (operator.type == variables.MORE_OR_EQUAL) {
-          a = new ast.ExpressionMoreOrEqual(a, b);
+          a = ast.ExpressionMoreOrEqual(a, b);
         } else if (operator.type == variables.MORE) {
-          a = new ast.ExpressionMore(a, b);
+          a = ast.ExpressionMore(a, b);
         } else if (operator.type == variables.LESS_OR_EQUAL) {
-          a = new ast.ExpressionLessOrEqual(a, b);
+          a = ast.ExpressionLessOrEqual(a, b);
         } else if (operator.type == variables.LESS) {
-          a = new ast.ExpressionLess(a, b);
+          a = ast.ExpressionLess(a, b);
         } else if (operator.type == variables.EQUAL) {
-          a = new ast.ExpressionEqual(a, b);
+          a = ast.ExpressionEqual(a, b);
         } else {
-          a = new ast.ExpressionNotEqual(a, b);
+          a = ast.ExpressionNotEqual(a, b);
         }
       }
       return a;
     }
 
     function additive() {
+      console.log("in additive");
+
       var l = multiplicative();
       while (has(variables.PLUS) || has(variables.MINUS)) {
         var operatorToken = next();
         var r = multiplicative();
         if (operatorToken.type == variables.PLUS) {
-          l = new ast.ExpressionAdd(l, r);
+          l = ast.ExpressionAdd(l, r);
         } else {
-          l = new ast.ExpressionSubtract(l, r);
+          l = ast.ExpressionSubtract(l, r);
         }
       }
 
@@ -199,6 +220,8 @@ export default {
     }
 
     function multiplicative() {
+      console.log("in multiplicative");
+
       var a = atom();
       while (
         has(variables.ASTERISK) ||
@@ -209,30 +232,38 @@ export default {
         next(); // eat operator
         var b = atom();
         if (operator.type == variables.ASTERISK) {
-          a = new ast.ExpressionMultiply(a, b);
+          a = ast.ExpressionMultiply(a, b);
         } else if (operator.type == variables.MOD) {
-          a = new ast.ExpressionMod(a, b);
+          a = ast.ExpressionMod(a, b);
         } else {
-          a = new ast.ExpressionDivide(a, b);
+          a = ast.ExpressionDivide(a, b);
         }
       }
       return a;
     }
 
     function atom() {
+      console.log("in atom");
+
       if (has(variables.INTEGER)) {
+        console.log("in integer");
+
         let token = next();
-        return new ast.ExpressionIntegerLiteral(parseInt(token.source));
+        return ast.ExpressionIntegerLiteral(parseInt(token.source));
       } else if (has(variables.STRING)) {
+        console.log("in string");
         let token = next();
-        return new ast.ExpressionString(token.source);
+        return ast.ExpressionString(token.source);
       } else if (has(variables.NOTE)) {
+        console.log("in note");
         return statement();
       } else if (has(variables.REST)) {
+        console.log("in rest");
         return statement();
       } else if (has(variables.IDENTIFIER)) {
+        console.log("in identifier");
         let token = next();
-        return new ast.ExpressionVariableRef(String(token.source));
+        return ast.ExpressionVariableRef(String(token.source));
       } else if (has(variables.LEFT_PARENTHESIS)) {
         next();
         var e = expression();

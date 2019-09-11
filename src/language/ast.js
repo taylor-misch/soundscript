@@ -16,8 +16,12 @@ export default {
   },
 
   Block(statements) {
+    console.log("I'm in BLOCK");
+    console.log(statements);
     this.evaluate = function(env) {
+      console.log("I'm in BLOCK 2");
       statements.forEach(statement => {
+        console.log("I'm in BLOCK");
         statement.evaluate(env);
       });
     };
@@ -27,9 +31,9 @@ export default {
   },
 
   StatementRest(restLength) {
-    return new this.StatementNote(
-      new this.ExpressionIntegerLiteral(parseInt(0)),
-      new this.ExpressionString("sine"),
+    return this.StatementNote(
+      this.ExpressionIntegerLiteral(parseInt(0)),
+      this.ExpressionString("sine"),
       restLength
     );
   },
@@ -120,6 +124,9 @@ export default {
   // Expressions
 
   ExpressionIntegerLiteral(literal) {
+    console.log("in Expression integer literal");
+    console.log(literal);
+
     this.evaluate = function() {
       return literal;
     };
@@ -127,7 +134,12 @@ export default {
 
   // we should have an error in case the variable isn't set/doesn't exist
   ExpressionVariableRef(id) {
+    console.log("in Expression Variable ref");
+    console.log(id);
+
     this.evaluate = function(env) {
+      console.log("hello");
+
       return env[id];
     };
   },

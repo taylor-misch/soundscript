@@ -30,6 +30,7 @@ import Grammar from "@/components/Grammar";
 import Branding from "@/components/Branding";
 import lexer from "@/language/lexer.js";
 import parser from "@/language/parser.js";
+import { variables } from "@/language/variables.js";
 // import ast from "@/language/ast.js";
 
 export default {
@@ -55,15 +56,17 @@ export default {
       var source = code;
       var tokens = lexer.lex(source);
       var ast = parser.parse(tokens);
+      console.log("HI I'm Back in the village again");
+
       //maybe set default lengths for each note here?
-      var env = {
-        SIXTEENTH: 60000 / 120 / 4,
-        EIGHTH: 60000 / 120 / 2,
-        QUARTER: 60000 / 120,
-        HALF: (60000 / 120) * 2,
-        WHOLE: (60000 / 120) * 4
-      };
-      ast.evaluate(env);
+      // var env = {
+      //   SIXTEENTH: 60000 / 120 / 4,
+      //   EIGHTH: 60000 / 120 / 2,
+      //   QUARTER: 60000 / 120,
+      //   HALF: (60000 / 120) * 2,
+      //   WHOLE: (60000 / 120) * 4
+      // };
+      ast.evaluate(variables.env);
     }
   }
 };

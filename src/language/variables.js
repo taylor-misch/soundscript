@@ -32,5 +32,20 @@ export const variables = {
   //Print, assign, and functions
   PRINT: "PRINT",
   ASSIGN: "ASSIGN",
-  AT: "AT"
+  AT: "AT",
+  env: {
+    SIXTEENTH: 60000 / 120 / 4,
+    EIGHTH: 60000 / 120 / 2,
+    QUARTER: 60000 / 120,
+    HALF: (60000 / 120) * 2,
+    WHOLE: (60000 / 120) * 4
+  }
 };
+
+// export const env = {
+//   SIXTEENTH: 60000 / 120 / 4,
+//   EIGHTH: 60000 / 120 / 2,
+//   QUARTER: 60000 / 120,
+//   HALF: (60000 / 120) * 2,
+//   WHOLE: (60000 / 120) * 4
+// };
