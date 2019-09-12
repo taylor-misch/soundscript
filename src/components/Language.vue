@@ -2,7 +2,7 @@
   <Module title="Language Description">
     <div
       class="body-1"
-    >Our language is called SoundScript. Programming in this language allows the programmer to create sounds and musical patterns through the use of built in notes and self-made functions. The language is built on top of JavaScript and makes use of its built in sound and AudioContext object.</div>
+    >Welcome to SoundScript. Coding with SoundScript in this digital sandbox allows the programmer to create sounds and musical patterns through the use of built in notes and self-made functions. The language is built on top of JavaScript and makes use of its built-in sound and AudioContext object.</div>
     <br />
     <div
       class="body-1"

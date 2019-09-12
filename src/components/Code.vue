@@ -12,7 +12,7 @@
             background-color="white"
             label="Input"
             no-resize
-            rows="30"
+            rows="15"
           ></v-textarea>
         </v-flex>
         <v-flex xs6>
@@ -20,7 +20,8 @@
             filled
             background-color="white"
             label="Console (Read-Only)"
-            auto-grow
+            no-resize
+            rows="15"
             readonly
           ></v-textarea>
         </v-flex>
@@ -29,12 +30,20 @@
     <div class="hidden-md-and-up">
       <v-layout>
         <v-flex xs12>
-          <v-textarea filled background-color="white" label="Input" auto-grow v-model="code"></v-textarea>
+          <v-textarea
+            filled
+            background-color="white"
+            label="Input"
+            v-model="code"
+            no-resize
+            rows="15"
+          ></v-textarea>
           <v-textarea
             filled
             background-color="white"
             label="Console (Read-Only)"
-            auto-grow
+            no-resize
+            rows="15"
             readonly
           ></v-textarea>
         </v-flex>

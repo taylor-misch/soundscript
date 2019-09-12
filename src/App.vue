@@ -2,13 +2,13 @@
   <v-app>
     <v-app-bar dark app>
       <v-toolbar-title class="headline red--text text--lighten-1">
-        <span>SoundScript</span>
+        <span>
+          <strong>SoundScript</strong>
+        </span>
       </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <div class="headline red--text text--lighten-1">Creators: Taylor Misch and Rachel Korkowski</div>
     </v-app-bar>
 
-    <v-content class="grey lighten-1">
+    <v-content app class="grey lighten-2">
       <Branding />
       <v-container>
         <v-layout>
@@ -20,6 +20,12 @@
         </v-layout>
       </v-container>
     </v-content>
+    <v-footer app dark absolute>
+      <v-col class="text-center" cols="12">
+        {{ new Date().getFullYear() }} —
+        Created by Taylor Misch and Rachel Korkowski
+      </v-col>
+    </v-footer>
   </v-app>
 </template>
 
