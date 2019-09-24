@@ -14,8 +14,48 @@
         <v-layout>
           <v-flex xs12>
             <Language />
-            <Grammar />
             <Code v-on:run="compileCode" />
+
+            <v-tabs
+              v-model="tab"
+              class="elevation-2"
+              dark
+              :centered="centered"
+              :grow="grow"
+              :vertical="vertical"
+              :right="right"
+              :prev-icon="prevIcon ? 'mdi-arrow-left-bold-box-outline' : undefined"
+              :next-icon="nextIcon ? 'mdi-arrow-right-bold-box-outline' : undefined"
+              :icons-and-text="icons"
+            >
+              <v-tabs-slider></v-tabs-slider>
+              <v-tab
+                class="red--text text--lighten-1"
+                v-for="tab in tabs"
+                :key="tab.tabName"
+                :href="`#${tab.tabName}`"
+              >
+                {{ tab.tabName }}
+                <v-icon v-if="icons">mdi-phone</v-icon>
+              </v-tab>
+              <v-tab-item v-for="tab in tabs" :key="tab.tabName" :value="tab.tabName">
+                <v-card flat tile>
+                  <div v-if="tab.tabName === 'Documentation'">
+                    <Documentation />
+                  </div>
+                  <div v-else-if="tab.tabName === 'Grammar'">
+                    <Grammar />
+                  </div>
+                  <div v-else-if="tab.tabName === 'Example'">
+                    <Example />
+                  </div>
+                </v-card>
+              </v-tab-item>
+            </v-tabs>
+            <!-- 
+            <Documentation />
+            <Grammar />
+            <Example />-->
           </v-flex>
         </v-layout>
       </v-container>
@@ -34,6 +74,8 @@ import Code from "@/components/Code";
 import Language from "@/components/Language";
 import Grammar from "@/components/Grammar";
 import Branding from "@/components/Branding";
+import Documentation from "@/components/Documentation";
+import Example from "@/components/Example";
 import lexer from "@/language/lexer.js";
 import parser from "@/language/parser.js";
 
@@ -43,7 +85,9 @@ export default {
     Code,
     Language,
     Grammar,
-    Branding
+    Branding,
+    Documentation,
+    Example
   },
   methods: {
     compileCode: function(code) {
@@ -63,6 +107,23 @@ export default {
       };
       ast.evaluate(env);
     }
-  }
+  },
+  data: () => ({
+    tab: null,
+    text:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    icons: false,
+    centered: false,
+    grow: false,
+    vertical: false,
+    prevIcon: false,
+    nextIcon: false,
+    right: false,
+    tabs: [
+      { tabName: "Documentation", module: "Documentation" },
+      { tabName: "Grammar", module: "Grammar" },
+      { tabName: "Example", module: "Example" }
+    ]
+  })
 };
 </script>
