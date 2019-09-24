@@ -9,8 +9,6 @@
         <li>statement : NOTE expr expr expr</li>
         <li>REST expr</li>
         <li>BPM expr</li>
-        <li>PRINT expr</li>
-        <li>PRINT expr</li>
         <li>PLAY expr</li>
         <li>REPEAT expr statement* END</li>
         <li>IDENTIFIER ASSIGN expr</li>
