@@ -1,5 +1,5 @@
 <template>
-  <Module title="Grammar">
+  <Module title="Grammar - The Language Structure">
     <div class="body-1">
       <ul>
         <li>program : statement\* EOF</li>
