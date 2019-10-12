@@ -1,12 +1,12 @@
 <template>
   <v-app>
-    <v-app-bar dark app>
+    <!-- <v-app-bar dark app>
       <v-toolbar-title class="headline red--text text--lighten-1">
         <span>
           <strong>SoundScript</strong>
         </span>
       </v-toolbar-title>
-    </v-app-bar>
+    </v-app-bar>-->
 
     <v-content app class="grey lighten-2">
       <Branding />
@@ -39,7 +39,7 @@
                 <v-icon v-if="icons">mdi-phone</v-icon>
               </v-tab>
               <v-tab-item v-for="tab in tabs" :key="tab.tabName" :value="tab.tabName">
-                <v-card flat tile>
+                <v-card flat tile color="grey lighten-3">
                   <div v-if="tab.tabName === 'Documentation'">
                     <Documentation />
                   </div>
@@ -52,10 +52,6 @@
                 </v-card>
               </v-tab-item>
             </v-tabs>
-            <!-- 
-            <Documentation />
-            <Grammar />
-            <Example />-->
           </v-flex>
         </v-layout>
       </v-container>
@@ -110,8 +106,6 @@ export default {
   },
   data: () => ({
     tab: null,
-    text:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     icons: false,
     centered: false,
     grow: false,
