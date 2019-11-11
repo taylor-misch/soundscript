@@ -147,6 +147,7 @@ export default {
       }
 
       next();
+      console.log("Conditional: " + JSON.stringify(condition));
       return new StatementRepeat(condition, new Block(statements));
     }
 
@@ -246,6 +247,7 @@ export default {
     function atom() {
       if (has(variables.INTEGER)) {
         let token = next();
+        console.log(parseInt(token.source));
         return new ExpressionIntegerLiteral(parseInt(token.source));
       } else if (has(variables.STRING)) {
         let token = next();

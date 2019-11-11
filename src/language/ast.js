@@ -27,6 +27,8 @@ export function stopOscillator(osc) {
 }
 
 export function StatementRest(restLength) {
+  console.log("rest: " + JSON.stringify(restLength));
+
   return new StatementNote(
     new ExpressionIntegerLiteral(parseInt(0)),
     new ExpressionString("sine"),
@@ -52,6 +54,7 @@ export function StatementRepeat(condition, block) {
   this.evaluate = function(env) {
     while (condition.evaluate(env) != 0) {
       block.evaluate(env);
+      condition = condition - 1;
     }
   };
 }
