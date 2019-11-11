@@ -1,23 +1,5 @@
 <template>
   <Module title="Documentation">
-    <!-- <v-expansion-panels multiple>
-      <v-expansion-panel>
-        <v-expansion-panel-header class="title">"hellow Test</v-expansion-panel-header>
-        <v-expansion-panel-content>
-          <v-expansion-panels multiple>
-            <v-expansion-panel>
-              <v-expansion-panel-header class="title">Hello inners</v-expansion-panel-header>
-              <v-expansion-panel-content>I'm small text</v-expansion-panel-content>
-              <v-expansion-panel-header class="title">Hello inners 2</v-expansion-panel-header>
-              <v-expansion-panel-content>I'm small text</v-expansion-panel-content>
-              <v-expansion-panel-header class="title">Hello inners 3</v-expansion-panel-header>
-              <v-expansion-panel-content>I'm small text</v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>-->
-
     <v-expansion-panels multiple>
       <v-expansion-panel v-for="item in items" :key="item.title">
         <v-expansion-panel-header class="title">
