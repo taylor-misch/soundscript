@@ -112,25 +112,25 @@ export default {
           next();
         }
 
-        if (tokenSoFar == "note") {
+        if (tokenSoFar.toLowerCase() == "note") {
           store(variables.NOTE);
-        } else if (tokenSoFar == "rest") {
+        } else if (tokenSoFar.toLowerCase() == "rest") {
           store(variables.REST);
-        } else if (tokenSoFar == "bpm") {
+        } else if (tokenSoFar.toLowerCase() == "bpm") {
           store(variables.BPM);
-        } else if (tokenSoFar == "play") {
+        } else if (tokenSoFar.toLowerCase() == "play") {
           store(variables.PLAY);
-        } else if (tokenSoFar == "repeat") {
+        } else if (tokenSoFar.toLowerCase() == "repeat") {
           store(variables.REPEAT);
-        } else if (tokenSoFar == "if") {
+        } else if (tokenSoFar.toLowerCase() == "if") {
           store(variables.IF);
-        } else if (tokenSoFar == "else") {
+        } else if (tokenSoFar.toLowerCase() == "else") {
           store(variables.ELSE);
-        } else if (tokenSoFar == "end") {
+        } else if (tokenSoFar.toLowerCase() == "end") {
           store(variables.END);
-        } else if (tokenSoFar == "print") {
+        } else if (tokenSoFar.toLowerCase() == "print") {
           store(variables.PRINT);
-        } else if (tokenSoFar == "@") {
+        } else if (tokenSoFar.toLowerCase() == "@") {
           store(variables.AT);
         } else {
           store(variables.IDENTIFIER);

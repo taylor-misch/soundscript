@@ -47,7 +47,7 @@ export default {
       },
       {
         title: "BPM",
-        type: "Number (not working)",
+        type: "Number (Not working)",
         parameters: "NUMBER",
         description:
           "The BPM designates the Beats Per Minute of your SoundScript code. In base SoundScript, the standard beats per minute is 120 - meaning you could play 120 QUARTER length notes in a minute",
@@ -59,19 +59,20 @@ export default {
         parameters: "NOTE",
         description:
           "The PLAY action allows the passed in note's value to render through sound. ",
-        example: 'PLAY note 261 "sine" QUARTER'
+        example: 'PLAY note 262 "sine" QUARTER'
       },
       {
         title: "REPEAT",
-        type: "Action (Not working)",
-        parameters: "",
-        description: "this is a note",
-        example: 'note 261 "sine" QUARTER'
+        type: "Logic (Not working)",
+        parameters: "Expression (see Grammar), Statement (see Grammar)",
+        description:
+          "The REPEAT action is SoundScripts version of a while loop. It allows the code to repeat sections based on the number of loops you pass in.",
+        example: 'repeat 3 play note 262 "sine" QUARTER end'
       },
       {
         title: "IF",
-        type: "LOGIC (Note working)",
-        parameters: "N/A",
+        type: "Logic (Not working)",
+        parameters: "Expression (see Grammar), Statement (see Grammar)",
         description:
           "The IF Logic gate allows you to enter certain areas of your code only if a condition is met",
         example:
@@ -79,8 +80,8 @@ export default {
       },
       {
         title: "ELSE",
-        type: "LOGIC (Note working)",
-        parameters: "N/A",
+        type: "Logic (Not working)",
+        parameters: "Statement (see Grammar)",
         description:
           "The ELSE logic gate signifies what will happen if the condition in the IF logic gate isn't successful",
         example:
@@ -88,7 +89,7 @@ export default {
       },
       {
         title: "END",
-        type: "LOGIC",
+        type: "Logic",
         parameters: "N/A",
         description:
           "The END logic gate is used to signify the stopping point of either an IF/ELSE statement or an @ method",
