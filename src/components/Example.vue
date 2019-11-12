@@ -8,7 +8,7 @@
       <v-expansion-panel v-for="item in items" :key="item.title">
         <v-expansion-panel-header class="title">{{item.title}}</v-expansion-panel-header>
         <v-expansion-panel-content>
-          <strong>Example:</strong>
+          <strong>Examples:</strong>
           {{item.example}}
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -79,7 +79,55 @@ export default {
         example: "need to fill"
       },
       {
-        title: "Action",
+        title: "Mary Had a Little Lamb",
+        example: "need to fill"
+      },
+      {
+        title: "Parameters in Action",
+        example: "need to fill"
+      },
+      {
+        title: "Repeat Loops",
+        example: "need to fill"
+      },
+      {
+        title: "If/Else Blocks",
+        example: "need to fill"
+      },
+      {
+        title: "Methods",
+        example: "need to fill"
+      },
+      {
+        title: "Playing Notes and Rests",
+        example: "need to fill"
+      },
+      {
+        title: "Changing the BPM",
+        example: "need to fill"
+      },
+      {
+        title: "Sample",
+        example: "need to fill"
+      },
+      {
+        title: "Sample",
+        example: "need to fill"
+      },
+      {
+        title: "Sample",
+        example: "need to fill"
+      },
+      {
+        title: "Sample",
+        example: "need to fill"
+      },
+      {
+        title: "Sample",
+        example: "need to fill"
+      },
+      {
+        title: "Sample",
         example: "need to fill"
       }
     ]

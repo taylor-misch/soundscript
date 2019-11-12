@@ -46,7 +46,7 @@
                   <div v-else-if="tab.tabName === 'Grammar'">
                     <Grammar />
                   </div>
-                  <div v-else-if="tab.tabName === 'Example'">
+                  <div v-else-if="tab.tabName === 'Examples'">
                     <Example />
                   </div>
                 </v-card>
@@ -116,7 +116,7 @@ export default {
     tabs: [
       { tabName: "Documentation", module: "Documentation" },
       { tabName: "Grammar", module: "Grammar" },
-      { tabName: "Example", module: "Example" }
+      { tabName: "Examples", module: "Examples" }
     ]
   })
 };
