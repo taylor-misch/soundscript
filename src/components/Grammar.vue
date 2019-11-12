@@ -1,6 +1,18 @@
 <template>
   <Module title="Grammar - The Language Structure">
-    <div class="body-1">
+    <v-expansion-panels multiple>
+      <v-expansion-panel v-for="item in items" :key="item.title">
+        <v-expansion-panel-header class="title">{{item.title}}</v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <strong>Description:</strong>
+          {{item.description}}
+          <br />
+          <strong>Example:</strong>
+          {{item.example}}
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
+    <!-- <div class="body-1">
       <ul>
         <li>program : statement\* EOF</li>
       </ul>
@@ -24,7 +36,7 @@
         <li>expr (PLUS|MINUS) expr</li>
         <li>expr (MORE|MORE_OR_EQUAL|LESS_OR_EQUAL|EQUAL|NOT_EQUAL) expr</li>
       </ul>
-    </div>
+    </div>-->
   </Module>
 </template>
 
@@ -33,7 +45,65 @@ import Module from "@/components/Module";
 export default {
   components: {
     Module
-  }
+  },
+  data: () => ({
+    items: [
+      {
+        title: "Object",
+        description:
+          "The NOTE object is one of the building blocks of SoundScript.",
+        example: 'note 262 "sine" QUARTER'
+      },
+      {
+        title: "Action",
+        description:
+          "The REST object allows you to create pauses in between the notes you play.",
+        example: "rest QUARTER or rest 500"
+      },
+      {
+        title: "Method Signifier",
+        description:
+          "The PLAY action allows the passed in note or rest value to render through sound. ",
+        example: 'PLAY note 262 "sine" QUARTER or PLAY rest QUARTER'
+      },
+      {
+        title: "Logic",
+        description:
+          "The PLAY action allows the passed in note or rest value to render through sound. ",
+        example: 'PLAY note 262 "sine" QUARTER or PLAY rest QUARTER'
+      },
+      {
+        title: "String",
+        description:
+          "The PLAY action allows the passed in note or rest value to render through sound. ",
+        example: 'PLAY note 262 "sine" QUARTER or PLAY rest QUARTER'
+      },
+      {
+        title: "Number",
+        description:
+          "The PLAY action allows the passed in note or rest value to render through sound. ",
+        example: 'PLAY note 262 "sine" QUARTER or PLAY rest QUARTER'
+      },
+      {
+        title: "Expression",
+        description:
+          "The PLAY action allows the passed in note or rest value to render through sound. ",
+        example: 'PLAY note 262 "sine" QUARTER or PLAY rest QUARTER'
+      },
+      {
+        title: "Statement",
+        description:
+          "The PLAY action allows the passed in note or rest value to render through sound. ",
+        example: 'PLAY note 262 "sine" QUARTER or PLAY rest QUARTER'
+      },
+      {
+        title: "Identifier",
+        description:
+          "The PLAY action allows the passed in note or rest value to render through sound. ",
+        example: 'PLAY note 262 "sine" QUARTER or PLAY rest QUARTER'
+      }
+    ]
+  })
 };
 </script>
 

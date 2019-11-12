@@ -11,7 +11,6 @@ export function StatementNote(frequency, oscillatorType, noteLength) {
     var freq = frequency.evaluate(env);
     var oscType = oscillatorType.evaluate(env);
     var noteLen = noteLength.evaluate(env);
-
     var noteObject = {
       frequency: freq,
       oscillatorType: oscType,
@@ -27,11 +26,9 @@ export function stopOscillator(osc) {
 }
 
 export function StatementRest(restLength) {
-  console.log("rest: " + JSON.stringify(restLength));
-
   return new StatementNote(
     new ExpressionIntegerLiteral(parseInt(0)),
-    new ExpressionString("sine"),
+    new ExpressionString(" sine "),
     restLength
   );
 }
@@ -40,6 +37,7 @@ export function StatementBPM(bpmExpr) {
   this.evaluate = function(env) {
     var bpm = bpmExpr.evaluate(env);
 
+    console.log("bpm: " + bpm);
     // caclulates the length of time per beat
     var beat = 60000 / bpm;
     env["SIXTEENTH"] = beat / 4;
@@ -54,7 +52,6 @@ export function StatementRepeat(condition, block) {
   this.evaluate = function(env) {
     while (condition.evaluate(env) != 0) {
       block.evaluate(env);
-      condition = condition - 1;
     }
   };
 }

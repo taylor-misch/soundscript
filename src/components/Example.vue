@@ -1,9 +1,20 @@
 <template>
-  <Module title="Example">
+  <Module title="Examples">
     <div class="body">
-      <strong>Here is a sample song that demonstrates the core functionality of SoundScript. Copy and paste it into the playground to hear the music.</strong>
+      <strong>Here are some samples that demonstrates the core functionality of SoundScript. Copy and paste it into the playground to hear the music.</strong>
     </div>
-    <div class="body-4">
+    <br />
+    <v-expansion-panels multiple>
+      <v-expansion-panel v-for="item in items" :key="item.title">
+        <v-expansion-panel-header class="title">{{item.title}}</v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <strong>Example:</strong>
+          {{item.example}}
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
+
+    <!-- <div class="body-4">
       <br />c4 = note 262 "sine" QUARTER
       <br />d4 = note 294 "sine" QUARTER
       <br />e4 = note 330 "sine" QUARTER
@@ -51,7 +62,7 @@
       <br />twinkleTwinkleVerse1 ()
       <br />twinkleTwinkleVerse2 ()
       <br />twinkleTwinkleChorus ()
-    </div>
+    </div>-->
   </Module>
 </template>
 
@@ -60,7 +71,19 @@ import Module from "@/components/Module";
 export default {
   components: {
     Module
-  }
+  },
+  data: () => ({
+    items: [
+      {
+        title: "Twinkle Twinkle Little Star",
+        example: "need to fill"
+      },
+      {
+        title: "Action",
+        example: "need to fill"
+      }
+    ]
+  })
 };
 </script>
 
