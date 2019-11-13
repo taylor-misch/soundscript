@@ -1,13 +1,5 @@
 <template>
   <v-app>
-    <!-- <v-app-bar dark app>
-      <v-toolbar-title class="headline red--text text--lighten-1">
-        <span>
-          <strong>SoundScript</strong>
-        </span>
-      </v-toolbar-title>
-    </v-app-bar>-->
-
     <v-content app class="grey lighten-2">
       <Branding />
       <v-container>
@@ -59,7 +51,11 @@
     <v-footer app dark absolute>
       <v-col class="text-center" cols="12">
         {{ new Date().getFullYear() }} —
-        Created by Taylor Misch and Rachel Korkowski
+        Created by
+        <a
+          id="footer"
+          href="https://taylormisch.com"
+        >Taylor Misch</a> and Rachel Korkowski
       </v-col>
     </v-footer>
   </v-app>
@@ -121,3 +117,12 @@ export default {
   })
 };
 </script>
+
+<style scoped>
+#footer a:link,
+a:visited {
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+</style>

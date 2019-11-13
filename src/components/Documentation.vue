@@ -76,7 +76,7 @@ export default {
         description:
           "The REPEAT action is SoundScripts version of a while loop. It allows the code to repeat sections based on a conditional that you evaluate by. In the example below, the code is repeated 3 times because x is decremented by 1 each time it runs.",
         example: 'x = 3 repeat x > 0 play note 262 "sine" QUARTER x = x -1 end',
-        example2: ""
+        example2: 'see "Repeat Loops" in Examples'
       },
       {
         title: "IF",
@@ -86,7 +86,7 @@ export default {
           "The IF Logic gate allows you to enter certain areas of your code only if a condition is met",
         example:
           'IF 3 == 3 play note 262 "sine" QUARTER else play note 293 "sine" QUARTER end',
-        example2: ""
+        example2: 'see "IF/ELSE Blocks" in Examples'
       },
       {
         title: "ELSE",
@@ -95,18 +95,18 @@ export default {
         description:
           "The ELSE logic gate signifies what will happen if the condition in the IF logic gate isn't successful",
         example:
-          'IF 3 == 3play note 262 "sine" QUARTER else play note 293 "sine" QUARTER end',
-        example2: ""
+          'IF y == 3 play note 262 "sine" QUARTER else play note 293 "sine" QUARTER end',
+        example2: 'see "IF/ELSE Blocks" in Examples'
       },
       {
         title: "END",
         type: "Logic",
         parameters: "N/A",
         description:
-          "The END logic gate is used to signify the stopping point of either an IF/ELSE statement or an @ method",
+          "The END logic gate is used to signify the stopping point of either an IF/ELSE statement, a REPEAT or an @ method",
         example:
-          'IF play note 262 "sine" QUARTER else play note 293 "sine" QUARTER end',
-        example2: ""
+          'IF  x >= 2 play note 262 "sine" QUARTER else play note 293 "sine" QUARTER end',
+        example2: 'x = 3 repeat x > 0 play note 262 "sine" QUARTER x = x -1 end'
       },
       {
         title: "WAVE-TYPE",
@@ -133,7 +133,7 @@ export default {
         description:
           "The BPM designates the Beats Per Minute of your SoundScript code. In base SoundScript, the standard beats per minute is 120 - meaning you could play 120 QUARTER length notes in a minute. Be aware, if you set a note to a variable prior to changing the BPM, it will remain unchanged and will not reflect the change in BPM.",
         example: "bpm 240",
-        example2: "bpm 360"
+        example2: 'see "Changing the BPM" in examples'
       },
 
       {
@@ -141,9 +141,9 @@ export default {
         type: "Number",
         parameters: "N/A",
         description:
-          "Object: The LENGTH of a note, as specified by the standard music notes: SIXTEENTH, EIGHTH, QUARTER, HALF, WHOLE. The LENGTH is the 3rd parameter of the NOTE object. In the example below, 500 is the length - which is equivalent to a QUARTER note in base SoundScript",
+          "Object: The LENGTH of a note, as specified by the standard music notes: SIXTEENTH, EIGHTH, QUARTER, HALF, WHOLE. The LENGTH is the 3rd parameter of the NOTE object and the 1st parameter in the REST object. In the example below, 500 is the length of the note and 250 is the length of the rest.",
         example: 'note 262 "sine" 500',
-        example2: ""
+        example2: "rest 250"
       },
       {
         title: "SIXTEENTH",

@@ -62,8 +62,8 @@ export default {
         title: "Method Signifier",
         description:
           "The Method Signifier indicates where a method begins. This is done in SoundScript using the @ symbol. The empty parenthesis after the method name are necessary for both the Method Definition and Method Call.",
-        example: "Method Definition: @ (STRING - Method Name) (Parameters)",
-        example2: "Method Call: (STRING - Method NAME) (Parameters)"
+        example: "Method Definition: @ (String - Method Name) (Parameters)",
+        example2: "Method Call: (String - Method NAME) (Parameters)"
       },
       {
         title: "Number",
@@ -83,8 +83,8 @@ export default {
         title: "Parameters",
         description:
           'Parameters and SoundScript are like most other languages. In the Method Definition they are represented by a variable - no need for type assignment. In the Method Call they can simply be passed in. See "Parameters in Action" under the Examples tab',
-        example: "Method Definition: @ (STRING - Method Name) (x)",
-        example2: "Method Call: (STRING - Method NAME) (3)"
+        example: "Method Definition: @ (String - Method Name) (x)",
+        example2: "Method Call: (String - Method NAME) (3)"
       },
       {
         title: "SoundScript",
