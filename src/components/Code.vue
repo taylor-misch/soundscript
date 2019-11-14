@@ -2,7 +2,7 @@
   <Module title="Coding Playground">
     <div
       class="mb-3 text-uppercase title"
-    >Warning! Sounds play very loud, make sure you're volume is low when running code. Also, the language does not run asynchronously, so your browser will hang up till the song is completed.</div>
+    >Warning! Sounds play very loud, make sure you're volume is low when running code. The language is only supported by the Chrome browser and does not run asynchronously, so your browser will hang up till the song is completed.</div>
     <v-layout>
       <v-flex lg6 md8 xs12>
         <v-textarea
